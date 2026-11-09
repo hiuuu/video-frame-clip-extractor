@@ -24,6 +24,14 @@ A lightweight, cross-platform desktop app for **extracting clips and frames from
 
 ---
 
+## 📥 Download
+
+Grab the latest pre-built Windows executable from the
+[**Releases page**](https://github.com/hiuuu/video-frame-clip-extractor/releases/latest).
+No Python or FFmpeg installation required — everything is bundled.
+
+---
+
 ## 📋 Requirements
 
 - **Python 3.10+** (tested up to 3.14.7)
