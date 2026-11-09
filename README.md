@@ -4,7 +4,7 @@ A lightweight, cross-platform desktop app for **extracting clips and frames from
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
-![License](https://img.shields.io/badge/license-MIT-green)
+![License](https://img.shields.io/badge/license-GPL--3.0-blue)
 ![Version](https://img.shields.io/badge/version-4.2-blueviolet)
 
 ---
@@ -178,12 +178,47 @@ Make sure you're saving to an NTFS volume and that the terminal encoding is UTF-
 
 ## 📄 License
 
-[MIT](LICENSE) © 2026 Your Name
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
+
+```
+Video Frame & Clip Extractor
+Copyright (C) 2026 Your Name
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+```
+
+### What this means for you
+
+- ✅ **Use freely** — run, study, and modify the source code for any purpose
+- ✅ **Redistribute** — share copies with anyone, for free or for a fee
+- ⚠️ **Share modifications** — if you distribute a modified version, you **must** release your changes under GPL-3.0 as well
+- ⚠️ **Same license downstream** — any derived work distributed to others must also be GPL-3.0
+- ❌ **No closed-source forks** — you cannot integrate this code into a proprietary, closed-source product that is distributed to others
+- ✅ **Patent grant included** — contributors grant you a license to any patents they hold that are necessary to use the code
+
+The full license text is in the [`LICENSE`](LICENSE) file, or online at
+<https://www.gnu.org/licenses/gpl-3.0.html>.
+
+> **Note:** Using the software privately, or as part of an internal (non-distributed) service, does **not** trigger the copyleft obligations. You only need to share source code when you **distribute** the software or a derivative work to others.
 
 ---
 
 ## 🙏 Acknowledgements
 
-- [FFmpeg](https://ffmpeg.org/) — the engine behind everything
-- [tkinterdnd2](https://github.com/Eliav2/tkinterdnd2) — optional DnD
-- [Catppuccin](https://github.com/catppuccin/catppuccin) — color inspiration
+- [FFmpeg](https://ffmpeg.org/) — the engine behind everything (LGPL-2.1+ / GPL-2.0+, depending on build)
+- [tkinterdnd2](https://github.com/Eliav2/tkinterdnd2) — optional DnD (MIT)
+- [Catppuccin](https://github.com/catppuccin/catppuccin) — color inspiration (MIT)
+
+> FFmpeg is invoked as an external executable and is **not** linked into or bundled with this project's source code, so it does not affect the licensing of this repository. If you distribute a **bundled** copy of FFmpeg with this app, ensure your FFmpeg build's license is compatible with GPL-3.0.
+
