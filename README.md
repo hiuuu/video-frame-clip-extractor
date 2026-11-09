@@ -24,18 +24,6 @@ A lightweight, cross-platform desktop app for **extracting clips and frames from
 
 ---
 
-## 📸 Screenshots
-
-> _Place your screenshots in the `screenshots/` folder and reference them here._
-
-```
-![Main window](screenshots/main.png)
-![Clip extraction](screenshots/clip.png)
-![Metadata view](screenshots/metadata.png)
-```
-
----
-
 ## 📋 Requirements
 
 - **Python 3.10+** (tested up to 3.14.7)
