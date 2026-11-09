@@ -37,4 +37,13 @@ Open an issue with the tag `enhancement` and describe:
 
 ## License
 
-By contributing, you agree that your code will be released under the [MIT License](LICENSE).
+By submitting a pull request, you agree that your contributions will be
+licensed under the **GNU General Public License v3.0 (GPL-3.0)**, the same
+license that covers this project. See [`LICENSE`](LICENSE) for the full text.
+
+Please make sure that any code, assets, or dependencies you introduce are
+**compatible with GPL-3.0**. In particular:
+
+- ✅ MIT, BSD, Apache-2.0, LGPL code can be included (with attribution)
+- ❌ Proprietary or GPL-incompatible code cannot be merged
+- ⚠️ If you copy code from another GPL-3.0 project, credit it in the PR
