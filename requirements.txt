@@ -1,0 +1,10 @@
+# ── Required ──────────────────────────────────
+# (none — the app uses only Python's standard library + FFmpeg)
+
+# ── Optional ──────────────────────────────────
+# Uncomment to enable drag & drop.
+# tkinterdnd2>=0.6.2
+
+# ── System dependency (install separately) ────
+# ffmpeg  — https://ffmpeg.org/download.html
+# ffprobe — bundled with ffmpeg
