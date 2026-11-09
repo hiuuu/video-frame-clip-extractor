@@ -1,0 +1,45 @@
+# ── Python ────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ── Testing / coverage ────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ── IDE / editor ──────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Output / media artifacts ──────────────────
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*_frame_*.jpg
+*_frame_*.png
+output_*.mp4
+
+# ── Local config ──────────────────────────────
+.env
+config.local.json
