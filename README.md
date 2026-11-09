@@ -182,7 +182,7 @@ This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**
 
 ```
 Video Frame & Clip Extractor
-Copyright (C) 2026 Your Name
+Copyright (C) 2026 Hamed Zandieh (hamed.zandieh@gmail.com)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
