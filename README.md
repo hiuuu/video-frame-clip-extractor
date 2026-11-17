@@ -1,41 +1,37 @@
 # 🎬 Video Frame & Clip Extractor
 
-A lightweight, cross-platform desktop app for **extracting clips and frames from videos** — built with Python + Tkinter + FFmpeg. No heavy dependencies, no Electron, no nonsense.
+A lightweight, cross-platform desktop app for **extracting clips and frames from videos** — built with Python + Tkinter + FFmpeg. No heavy frameworks, no Electron, no nonsense.
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 ![License](https://img.shields.io/badge/license-GPL--3.0-blue)
-![Version](https://img.shields.io/badge/version-4.2-blueviolet)
+![Version](https://img.shields.io/badge/version-4.7-blueviolet)
 
 ---
 
 ## ✨ Features
 
-- 🎞 **Clip extraction** from the beginning, the end, or any custom start second
-- ⏱ **Custom duration** with quick presets (1s / 3s / 5s / 10s) or any decimal value
+- 🎞 **Clip extraction** — start from the beginning, the end, or any custom second
+- ⏱ **Custom duration** — quick presets (1s / 3s / 5s / 10s) or any decimal value
 - 🎚 **Custom output frame rate** — 16 / 24 / 25 / 30 fps presets or any value you type
 - 🔊 **Audio on/off** toggle (AAC 192 kbps when enabled)
-- 🖼 **Frame extraction** — first frame, last frame, or any frame by number
-- 📊 **Full technical metadata** — codec, resolution, FPS (avg + real + CFR/VFR detection), bitrate, pix_fmt, sample rate, channels, tags, and more
-- 📝 **Descriptive auto-generated filenames** (see below)
+- 🖼 **Visual frame selection** — scrub through the video with a slider and see a live preview of each frame
+- ⏮ **Frame navigation** — `[<<] [<] [>] [>>]` buttons for first / step-back / step-forward / last
+- 📊 **Live progress bar** — real-time progress for clip extraction and full-video conversion
+- 🎞 **Full-video FPS conversion** — re-encode an entire video to any target frame rate with CFR guarantee
+- 📈 **Full technical metadata** — codec, resolution, FPS (avg + real + CFR/VFR detection), bitrate, pix_fmt, sample rate, channels, tags, and more
+- 📝 **Descriptive auto-generated filenames** — see below
 - 📁 **Optional drag & drop** (requires `tkinterdnd2`; a **Paste Path** field is always available as fallback)
-- 🧵 **Non-blocking UI** — all FFmpeg work runs in background threads
-- 🎨 **Dark, minimal UI** — Catppuccin-inspired theme, no extra GUI libraries
+- 🧵 **Non-blocking UI** — all FFmpeg work runs in background threads; the interface stays responsive
+- 🎨 **Dark, minimal UI** — Catppuccin-inspired theme, compact layout, scrollable action panel
 
----
-
-## 📥 Download
-
-Grab the latest pre-built Windows executable from the
-[**Releases page**](https://github.com/hiuuu/video-frame-clip-extractor/releases/latest).
-No Python or FFmpeg installation required — everything is bundled.
 
 ---
 
 ## 📋 Requirements
 
 - **Python 3.10+** (tested up to 3.14.7)
-- **FFmpeg** and **FFprobe** available in your system `PATH`
+- **FFmpeg** and **FFprobe** available in your system `PATH`, or placed next to the script
 - **tkinterdnd2** _(optional, for drag & drop only)_
 
 ---
@@ -69,6 +65,8 @@ ffprobe -version
 
 Both should print a version banner. If they say "command not found", FFmpeg isn't in your PATH.
 
+> 💡 **Recommended for Windows users:** place the real `ffmpeg.exe` and `ffprobe.exe` **next to** `VideoExtractorV4.7.py` (or next to the built `.exe`). The app looks there first, which avoids the Chocolatey shim issues that can cause `exit code 4294967295` errors when running from `subprocess`.
+
 ### 3. Clone and run
 
 ```bash
@@ -83,7 +81,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
-python video_tool.py
+python VideoExtractorV4.7.py
 ```
 
 ### 4. (Optional) Enable drag & drop
@@ -92,7 +90,7 @@ python video_tool.py
 pip install tkinterdnd2
 ```
 
-> ⚠ **Note on Windows:** drag & drop is blocked by Windows' UIPI when the app and Explorer run at different privilege levels (e.g. running the app "as Administrator"). If drag & drop doesn't work, use the **Load Video** button or the **Paste Path** field — both always work. See [Troubleshooting](#-troubleshooting).
+> ⚠ **Note on Windows:** drag & drop is blocked by Windows' UIPI when the app and Explorer run at different privilege levels (e.g. running the app "as Administrator"). If drag & drop doesn't work, use the **Load Video** button or the **Paste Path** field — both always work. Building with PyInstaller/Nuitka typically resolves DnD issues that appear when running from raw `python.exe`.
 
 ---
 
@@ -117,15 +115,29 @@ Once loaded, the left panel shows all technical metadata: codec, resolution, FPS
 4. Toggle **Include audio** (on by default)
 5. Click **🎬 Extract Clip** and choose where to save
 
-The clip is re-encoded to **H.264 / yuv420p / CFR** at the chosen frame rate, so the output is always playable and VFR-safe.
+A **live progress bar** at the bottom tracks the extraction in real time. The output is re-encoded to **H.264 / yuv420p / CFR** at the chosen frame rate, so it plays reliably everywhere.
 
 ### Extracting a frame
 
-- **⏮ First Frame** — grabs frame 0
-- **⏭ Last Frame** — grabs the final frame (works with `-sseof -1`)
-- **🖼 Extract This Frame** — enter any frame number in the `Frame #` field (the estimated total is shown below the field)
+The Frame Extraction panel has an interactive preview:
+
+- **Drag the slider** or click `[<<] [<] [>] [>>]` to navigate frames
+- A small **loading indicator** (`⏳ Frame N`) appears in the preview corner while the frame is being decoded
+- Type any number in the **Frame** field and press **Enter** to jump directly
+- The current position is shown as `/ <last>  (<total> frames)`
+- When you've found the frame you want, click **🖼 Extract This Frame**
 
 Frame images are saved as **JPEG** (quality 2) or **PNG**.
+
+### Converting a full video's frame rate
+
+The **Convert Full Video FPS** section re-encodes the entire video to a new frame rate:
+
+1. Set **Target FPS** (16 / 24 / 25 / 30 or any custom value)
+2. Toggle **Include audio**
+3. Click **🎞 Convert FPS** and choose where to save
+
+The output is always **CFR** (`-fps_mode cfr`), so it plays smoothly in editors, social platforms, and legacy players that don't handle VFR well.
 
 ---
 
@@ -138,8 +150,8 @@ All output files are prefixed with the source video's name and suffixed with des
 | Clip from end, 3s, 24fps, with audio | `myvideo_clip_from-end_3s_24fps_audio.mp4` |
 | Clip from start, 5s, 30fps, no audio | `myvideo_clip_from-start_5s_30fps_noaudio.mp4` |
 | Clip from second 15, 2.5s, 24fps, audio | `myvideo_clip_from-15s_2.5s_24fps_audio.mp4` |
+| Full video converted to 30fps, no audio | `myvideo_converted_30fps_noaudio.mp4` |
 | First frame | `myvideo_frame_first.jpg` |
-| Last frame | `myvideo_frame_last.jpg` |
 | Frame #234 | `myvideo_frame_00234.jpg` |
 
 The save dialog defaults to the **same folder as the source video** and pre-fills the filename. You can always change either before saving.
@@ -153,21 +165,41 @@ The save dialog defaults to the **same folder as the source video** and pre-fill
 This is usually a **Windows security feature**, not a bug:
 
 - **UIPI (User Interface Privilege Isolation)** blocks drops between apps running at different privilege levels. If you launched the terminal or the app **as Administrator**, drop a video from Explorer into a normal (non-admin) launch of the app instead.
-- **Python 3.14.8 on Windows** has a known DnD regression. Downgrade to **3.14.7** if you must use drag & drop.
-- **Old `tkinterdnd2`** (0.7.0 from some mirrors) ships Tcl/Tk 8.6 binaries that don't work with Tcl/Tk 9.0 (bundled with Python 3.14). Install from PyPI directly:
-  ```bash
-  pip install --index-url https://pypi.org/simple/ tkinterdnd2
-  ```
+- **Python 3.14.8 on Windows** has a known DnD regression. Use **3.14.7** if you must use drag & drop.
+- Running the app as a **built `.exe`** (via PyInstaller or Nuitka) typically resolves DnD issues that appear when running from raw `python.exe`.
 
 **The app always works without drag & drop** — just use **Load Video** or **Paste Path**.
 
+### `exit code 4294967295` or `ffprobe failed` on Windows
+
+This usually means the Chocolatey shim for `ffmpeg.exe` / `ffprobe.exe` is failing when invoked from `subprocess` with piped I/O. **Fix:** copy the real binaries next to the script:
+
+```powershell
+Copy-Item "C:\ProgramData\chocolatey\lib\ffmpeg\tools\ffmpeg\bin\ffmpeg.exe"  "<script-dir>\ffmpeg.exe"
+Copy-Item "C:\ProgramData\chocolatey\lib\ffmpeg\tools\ffmpeg\bin\ffprobe.exe" "<script-dir>\ffprobe.exe"
+```
+
+The app looks for these files next to the script first, then falls back to `PATH`.
+
 ### `ffmpeg not found`
 
-FFmpeg isn't in your `PATH`. Re-install it (see [Install FFmpeg](#2-install-ffmpeg)) and restart your terminal so it picks up the updated `PATH`.
+FFmpeg isn't in your `PATH` and isn't next to the script. Re-install it (see [Install FFmpeg](#2-install-ffmpeg)) and restart your terminal so it picks up the updated `PATH`.
 
 ### Output is empty / "frame out of range"
 
-The requested frame number exceeds the video's actual frame count. Check the **Est. total frames** hint below the `Frame #` field.
+The requested frame number exceeds the video's actual frame count. Check the **frame total** shown next to the Frame entry: `/ <last>  (<total> frames)`.
+
+### Frame preview is slow or laggy
+
+Frame preview decodes each frame on-demand via FFmpeg. On very large videos (4K+) or slow disks, expect ~200-500ms per frame. If performance is critical:
+
+- Close other CPU-heavy applications
+- Convert the video to a lower resolution first
+- Use the `<` / `>` step buttons rather than dragging rapidly
+
+### Progress bar doesn't move
+
+The progress bar is driven by FFmpeg's `-progress pipe:1` output, which requires a known total duration. For single-frame extraction (sub-second operations) the bar stays at 0% until the operation finishes, then jumps to 100% — that's expected.
 
 ### Chinese / Persian filenames show as `?`
 
@@ -181,6 +213,34 @@ Make sure you're saving to an NTFS volume and that the terminal encoding is UTF-
 - **Tkinter** — built-in GUI framework
 - **FFmpeg / FFprobe** — all media processing
 - **tkinterdnd2** _(optional)_ — drag & drop support
+
+---
+
+## 📦 Building a standalone executable
+
+### With Nuitka (recommended — smallest, fastest)
+
+```powershell
+nuitka --standalone --onefile --windows-console-mode=disable `
+       --windows-icon-from-ico=icon.ico `
+       --include-data-files=ffmpeg.exe=ffmpeg.exe `
+       --include-data-files=ffprobe.exe=ffprobe.exe `
+       --output-filename=VideoExtractorV4.7.exe `
+       VideoExtractorV4.7.py
+```
+
+### With PyInstaller
+
+```powershell
+pyinstaller --onefile --windowed `
+            --add-binary "ffmpeg.exe;." `
+            --add-binary "ffprobe.exe;." `
+            --icon "icon.ico" `
+            --name "VideoExtractorV4.7" `
+            VideoExtractorV4.7.py
+```
+
+Both builders bundle FFmpeg alongside the executable, so end users don't need to install anything.
 
 ---
 
@@ -229,4 +289,3 @@ The full license text is in the [`LICENSE`](LICENSE) file, or online at
 - [Catppuccin](https://github.com/catppuccin/catppuccin) — color inspiration (MIT)
 
 > FFmpeg is invoked as an external executable and is **not** linked into or bundled with this project's source code, so it does not affect the licensing of this repository. If you distribute a **bundled** copy of FFmpeg with this app, ensure your FFmpeg build's license is compatible with GPL-3.0.
-
